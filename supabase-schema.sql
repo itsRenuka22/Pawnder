@@ -49,6 +49,16 @@ SELECT
 FROM public.votes
 GROUP BY item_id;
 
+CREATE OR REPLACE VIEW public.analytics AS
+SELECT
+  COUNT(*)                                                              AS total_votes,
+  COUNT(*) FILTER (WHERE voted_at >= now() - INTERVAL '24 hours')      AS active_sessions_24h,
+  COUNT(*) FILTER (WHERE voted_at >= now() - INTERVAL '1 hour')        AS votes_last_hour,
+  COUNT(DISTINCT user_id)                                               AS total_voters,
+  COUNT(DISTINCT user_id)
+    FILTER (WHERE voted_at >= now() - INTERVAL '24 hours')             AS active_voters_24h
+FROM public.votes;
+
 -- ============================================================
 -- ROW LEVEL SECURITY
 -- ============================================================
@@ -83,4 +93,5 @@ CREATE POLICY "votes_own_select"
 
 -- results view: grant public read via a policy on the underlying table
 -- Views inherit the caller's permissions; grant SELECT so anon can query results
-GRANT SELECT ON public.results TO anon, authenticated;
+GRANT SELECT ON public.results   TO anon, authenticated;
+GRANT SELECT ON public.analytics TO anon, authenticated;

@@ -6,6 +6,7 @@
 *.key
 *.p12
 *.pfx
+.dev.vars
 
 # ── Node ────────────────────────────────────────────────────
 node_modules/
@@ -15,12 +16,17 @@ yarn-error.log*
 .pnpm-debug.log*
 .yarn/
 .npm/
+package-lock.json
+bun.lock
 
 # ── Build output ─────────────────────────────────────────────
 dist/
 build/
 .next/
 out/
+.output/
+.vinxi/
+.nitro/
 
 # ── OS / Editor ──────────────────────────────────────────────
 .DS_Store
@@ -34,3 +40,13 @@ Thumbs.db
 # ── Supabase local dev ───────────────────────────────────────
 supabase/.temp/
 supabase/functions/.env
+frontend/supabase/config.toml
+frontend/supabase/migrations/
+
+# ── Lovable / TanStack / Wrangler tooling ────────────────────
+frontend/.lovable/
+frontend/.tanstack/
+frontend/.wrangler/
+
+# ── Auto-generated files ─────────────────────────────────────
+frontend/src/routeTree.gen.ts
