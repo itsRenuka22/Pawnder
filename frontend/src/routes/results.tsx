@@ -178,16 +178,17 @@ function ResultsPage() {
     <main className="min-h-[100dvh] bg-gradient-warm overflow-x-hidden">
 
       {/* ── Header ── */}
-      <header className="sticky top-0 z-20 bg-background/70 backdrop-blur-md px-5 pt-4 pb-3 border-b border-border/50">
-        <div className="flex items-center gap-3">
-          <Link
-            to="/swipe"
-            aria-label="Back to swipe"
-            className="h-10 w-10 min-w-[44px] rounded-full bg-card flex items-center justify-center shadow-soft hover:bg-muted transition flex-shrink-0"
-          >
-            <ArrowLeft className="h-5 w-5 text-foreground" aria-hidden />
-          </Link>
-          <div className="flex items-center gap-2 flex-1 min-w-0">
+      <header className="sticky top-0 z-20 bg-background/80 backdrop-blur-md border-b border-border/50">
+        {/* Row 1: Back + title + sign-out */}
+        <div className="flex items-center justify-between px-5 pt-4 pb-2 gap-2">
+          <div className="flex items-center gap-2 min-w-0">
+            <Link
+              to="/swipe"
+              aria-label="Back to swipe"
+              className="h-9 w-9 min-w-[44px] rounded-full bg-card flex items-center justify-center shadow-soft hover:bg-muted transition flex-shrink-0"
+            >
+              <ArrowLeft className="h-5 w-5 text-foreground" aria-hidden />
+            </Link>
             <div
               aria-hidden
               className="h-7 w-7 rounded-full bg-gradient-primary flex items-center justify-center shadow-glow flex-shrink-0"
@@ -205,22 +206,26 @@ function ResultsPage() {
               </span>
             )}
           </div>
-          <Link
-            to="/matches"
-            aria-label="View your matches"
-            className="h-10 px-3 rounded-full bg-card text-foreground text-sm font-semibold flex items-center gap-1.5 shadow-soft hover:bg-muted transition flex-shrink-0"
-          >
-            <Heart className="h-4 w-4 text-primary fill-current" aria-hidden />
-            <span className="hidden sm:inline">Matches</span>
-          </Link>
           <button
             type="button"
             onClick={handleSignOut}
             aria-label="Sign out"
-            className="h-10 w-10 min-w-[44px] rounded-full bg-card flex items-center justify-center shadow-soft hover:bg-muted transition flex-shrink-0"
+            className="h-9 w-9 min-w-[44px] rounded-full bg-card flex items-center justify-center shadow-soft hover:bg-muted transition flex-shrink-0"
           >
             <LogOut className="h-4 w-4 text-muted-foreground" aria-hidden />
           </button>
+        </div>
+
+        {/* Row 2: Navigation tab */}
+        <div className="px-5 pb-3">
+          <Link
+            to="/matches"
+            aria-label="View your matches"
+            className="flex w-full min-h-[44px] items-center justify-center gap-1.5 rounded-full bg-card text-foreground text-sm font-semibold shadow-soft hover:bg-muted transition"
+          >
+            <Heart className="h-4 w-4 text-primary fill-current" aria-hidden />
+            My Matches
+          </Link>
         </div>
       </header>
 

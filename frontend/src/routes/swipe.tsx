@@ -219,66 +219,71 @@ function SwipePage() {
     <main className="min-h-[100dvh] bg-gradient-warm flex flex-col select-none overflow-hidden">
 
       {/* ── Header ── */}
-      <header className="sticky top-0 z-20 bg-background/70 backdrop-blur-md px-5 pt-4 pb-3 border-b border-border/50">
-        <div className="flex items-center justify-between">
+      <header className="sticky top-0 z-20 bg-background/80 backdrop-blur-md border-b border-border/50">
+        {/* Row 1: Logo + sign-out */}
+        <div className="flex items-center justify-between px-5 pt-4 pb-2">
           <div className="flex items-center gap-2">
             <div
               aria-hidden
-              className="h-9 w-9 rounded-full bg-gradient-primary flex items-center justify-center shadow-glow animate-float"
+              className="h-9 w-9 rounded-full bg-gradient-primary flex items-center justify-center shadow-glow animate-float flex-shrink-0"
             >
               <PawPrint className="h-5 w-5 text-primary-foreground" />
             </div>
             <span className="text-lg font-bold text-foreground tracking-tight">Pawnder</span>
           </div>
+          <button
+            type="button"
+            onClick={handleSignOut}
+            aria-label="Sign out"
+            className="h-9 w-9 min-w-[44px] rounded-full bg-card flex items-center justify-center shadow-soft hover:bg-muted transition flex-shrink-0"
+          >
+            <LogOut className="h-4 w-4 text-muted-foreground" aria-hidden />
+          </button>
+        </div>
 
-          <div className="flex items-center gap-2">
-            {!loading && (
-              <span className="text-sm font-semibold text-foreground tabular-nums" aria-label={`${votedCount} of ${total} pets voted on`}>
-                {votedCount}<span className="text-muted-foreground font-normal">/{total}</span>
-              </span>
-            )}
-            <Link
-              to="/matches"
-              aria-label="View your matches"
-              className="h-9 px-3 rounded-full bg-card text-foreground text-sm font-semibold flex items-center gap-1.5 shadow-soft hover:bg-muted transition min-w-[44px] justify-center"
-            >
-              <Heart className="h-4 w-4 text-primary fill-current" aria-hidden />
-              <span>Matches</span>
-            </Link>
-            <Link
-              to="/results"
-              aria-label="View results"
-              className="h-9 px-3 rounded-full bg-card text-foreground text-sm font-semibold flex items-center gap-1.5 shadow-soft hover:bg-muted transition min-w-[44px] justify-center"
-            >
-              <Trophy className="h-4 w-4 text-primary" aria-hidden />
-              <span>Results</span>
-            </Link>
-            <button
-              type="button"
-              onClick={handleSignOut}
-              aria-label="Sign out"
-              className="h-9 w-9 min-w-[44px] rounded-full bg-card flex items-center justify-center shadow-soft hover:bg-muted transition"
-            >
-              <LogOut className="h-4 w-4 text-muted-foreground" aria-hidden />
-            </button>
+        {/* Row 2: Progress */}
+        <div className="px-5 pb-2">
+          <div className="flex items-center justify-between mb-1">
+            <span className="text-xs font-medium text-muted-foreground">
+              {loading ? "Loading…" : `${votedCount} of ${totalCount} pets`}
+            </span>
+            <span className="text-xs font-semibold text-foreground tabular-nums">{pct}%</span>
+          </div>
+          <div
+            role="progressbar"
+            aria-valuenow={pct}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-label="Voting progress"
+            className="h-1.5 w-full rounded-full bg-muted overflow-hidden"
+          >
+            <motion.div
+              className="h-full bg-gradient-primary rounded-full"
+              initial={{ width: 0 }}
+              animate={{ width: `${pct}%` }}
+              transition={{ type: "spring", stiffness: 120, damping: 20 }}
+            />
           </div>
         </div>
 
-        {/* Progress bar */}
-        <div
-          role="progressbar"
-          aria-valuenow={pct}
-          aria-valuemin={0}
-          aria-valuemax={100}
-          aria-label="Voting progress"
-          className="mt-3 h-1.5 w-full rounded-full bg-muted overflow-hidden"
-        >
-          <motion.div
-            className="h-full bg-gradient-primary rounded-full"
-            initial={{ width: 0 }}
-            animate={{ width: `${pct}%` }}
-            transition={{ type: "spring", stiffness: 120, damping: 20 }}
-          />
+        {/* Row 3: Navigation tabs */}
+        <div className="flex gap-2 px-5 pb-3">
+          <Link
+            to="/matches"
+            aria-label="View your matches"
+            className="flex-1 min-h-[44px] flex items-center justify-center gap-1.5 rounded-full bg-card text-foreground text-sm font-semibold shadow-soft hover:bg-muted transition"
+          >
+            <Heart className="h-4 w-4 text-primary fill-current" aria-hidden />
+            Matches
+          </Link>
+          <Link
+            to="/results"
+            aria-label="View results"
+            className="flex-1 min-h-[44px] flex items-center justify-center gap-1.5 rounded-full bg-card text-foreground text-sm font-semibold shadow-soft hover:bg-muted transition"
+          >
+            <Trophy className="h-4 w-4 text-primary" aria-hidden />
+            Results
+          </Link>
         </div>
       </header>
 
